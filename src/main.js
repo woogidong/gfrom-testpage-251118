@@ -1,4 +1,5 @@
 import './style.css'
+import Swal from 'sweetalert2'
 
 const app = document.querySelector('#app')
 
@@ -170,11 +171,27 @@ form.addEventListener('submit', async (event) => {
     // no-cors 모드이므로 성공 여부를 정확히 알 수는 없지만,
     // 에러가 발생하지 않았다면 성공했다고 가정합니다.
     statusEl.textContent = '제출이 완료되었습니다. 감사합니다!'
+    await Swal.fire({
+      title: '제출이 완료되었어요',
+      text: '입력한 내용이 Google Form으로 전송되었습니다.',
+      icon: 'success',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#111',
+      heightAuto: false,
+    })
     form.reset()
   } catch (error) {
     console.error(error)
     statusEl.textContent =
       '제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
+    Swal.fire({
+      title: '제출 실패',
+      text: '네트워크 상태를 확인한 뒤 다시 시도해주세요.',
+      icon: 'error',
+      confirmButtonText: '확인',
+      confirmButtonColor: '#c0392b',
+      heightAuto: false,
+    })
   }
 })
 
